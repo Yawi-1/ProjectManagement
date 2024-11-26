@@ -1,0 +1,10 @@
+.teacher-list ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .teacher-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+  }
+  

@@ -5,7 +5,7 @@ const studentSchema = new mongoose.Schema({
     rollNumber: { type: String, required: true,unique:true },
     branch: { type: String, required: true },
     projectName: { type: String, required: true },
-    assignedTeacher: { type: String, required: true },
+    assignedTeacherId: { type: String, required: true },
 },{
     timestamps: true
 });

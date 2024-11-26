@@ -1,0 +1,20 @@
+.add-teacher form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .add-teacher input {
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .add-teacher button {
+    padding: 10px 20px;
+    background: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  

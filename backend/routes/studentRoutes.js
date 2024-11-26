@@ -1,19 +1,27 @@
 const express = require('express');
 const router = express.Router();
 const Student = require('../models/student');
-
+const Teacher = require('../models/teacher')
 
 // Add a new student
 router.post('/add', async (req, res) => {
     try {
-        const {rollNumber} = req.body;
+        const {rollNumber,assignedTeacherId} = req.body;
         const isStudent = await Student.findOne({rollNumber});
         if (isStudent) {
             return res.status(400).json({message: "Roll number already used."});
         }
-
         const student = new Student(req.body);
         await student.save();
+
+        // Store student in teacher array.......
+        const teacher = await Teacher.findById(assignedTeacherId);
+        if (!teacher) {
+           return res.status(400).json({message:"Teacher not found."})
+        }
+            teacher.students.push(student._id);
+         await teacher.save();
+
         res.status(201).json({ message: 'Student added successfully!' });
     } catch (err) {
         res.status(400).json({ error: err.message });

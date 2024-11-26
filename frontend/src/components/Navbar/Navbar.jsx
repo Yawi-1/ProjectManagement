@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
+import { useAuth } from '../../context/AuthContext';
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);  // State for menu visibility
@@ -8,6 +9,9 @@ const Navbar = () => {
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);  // Toggle the menu
     };
+
+    const {admin} = useAuth();
+    console.log(admin);
 
     return (
         <nav className="navbar">

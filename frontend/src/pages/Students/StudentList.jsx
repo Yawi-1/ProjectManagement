@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './StudentList.css';
 import { useProject } from '../../context/ProjectContext';
 import { saveAs } from 'file-saver';
@@ -7,25 +7,36 @@ import * as XLSX from 'xlsx';
 const StudentList = () => {
     const { teachers, students } = useProject();
     const [selectedTeacher, setSelectedTeacher] = useState('');
-    const [sorted, setSorted] = useState(students);
+    const [sorted, setSorted] = useState([]);
+
+    useEffect(() => {
+        if (students && students.length > 0) {
+            setSorted(students);
+        }
+    }, [students]);
 
     const handlePrint = () => {
         window.print();
     };
 
     const handleExportToExcel = () => {
-        if(sorted.length === 0){
+        if (sorted.length === 0) {
             alert('No students to export');
             return;
         }
-        const filteredStudents = sorted.map(({ name, rollNumber, projectName, branch, assignedTeacher,createdAt }) => ({
-            Name: name,
-            "Roll Number": rollNumber,
-            Project: projectName,
-            Branch: branch,
-            "Assigned Teacher": assignedTeacher,
-            "Created At":createdAt
-        }));
+        const filteredStudents = sorted.map(({ name, rollNumber, projectName, branch, assignedTeacherId, createdAt }) => {
+            const teacher = teachers.find((teacher) => teacher._id === assignedTeacherId);
+            const teacherName = teacher ? teacher.name : 'Not Assigned';
+
+            return {
+                Name: name,
+                "Roll Number": rollNumber,
+                Project: projectName,
+                Branch: branch,
+                "Assigned Teacher": teacherName,
+                "Created At": createdAt,
+            };
+        });
 
         const worksheet = XLSX.utils.json_to_sheet(filteredStudents);
         const workbook = XLSX.utils.book_new();
@@ -36,18 +47,20 @@ const StudentList = () => {
     };
 
     const handleSort = (e) => {
-        const teacherName = e.target.value;
-        setSelectedTeacher(teacherName);
+        const teacherId = e.target.value; // Filter using teacher ID
+        setSelectedTeacher(teacherId);
 
-        if (teacherName === '') {
+        if (teacherId === '') {
             // Reset to show all students
             setSorted(students);
         } else {
-            // Filter students based on the selected teacher
-            const sortedStudents = students.filter((student) => student.assignedTeacher === teacherName);
+            // Filter students based on the selected teacher ID
+            const sortedStudents = students.filter((student) => student.assignedTeacherId === teacherId);
             setSorted(sortedStudents);
         }
     };
+
+
 
     return (
         <div className="student-list">
@@ -57,7 +70,7 @@ const StudentList = () => {
                 <select id="teacherFilter" value={selectedTeacher} onChange={handleSort}>
                     <option value="">All</option>
                     {teachers.map((teacher) => (
-                        <option key={teacher._id} value={teacher.name}>
+                        <option key={teacher._id} value={teacher._id}>
                             {teacher.name}
                         </option>
                     ))}
@@ -73,17 +86,22 @@ const StudentList = () => {
                         <th>Assigned Teacher</th>
                     </tr>
                 </thead>
-                {sorted.length === 0 && <p className='info'>No Students Added</p>}
+                {sorted.length === 0 && <p>No Student Available</p>}
                 <tbody>
-                    {sorted.map((student) => (
-                        <tr key={student.rollNumber}>
-                            <td>{student.name}</td>
-                            <td>{student.rollNumber}</td>
-                            <td>{student.projectName}</td>
-                            <td>{student.branch}</td>
-                            <td>{student.assignedTeacher}</td>
-                        </tr>
-                    ))}
+                    {sorted.map((student) => {
+                        const teacher = teachers.find((teacher) => teacher._id === student.assignedTeacherId);
+                        const teacherName = teacher ? teacher.name : 'Not Assigned';
+
+                        return (
+                            <tr key={student.rollNumber}>
+                                <td>{student.name}</td>
+                                <td>{student.rollNumber}</td>
+                                <td>{student.projectName}</td>
+                                <td>{student.branch}</td>
+                                <td>{teacherName}</td>
+                            </tr>
+                        );
+                    })}
                 </tbody>
             </table>
             <br />

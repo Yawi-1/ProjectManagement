@@ -16,8 +16,7 @@ router.post('/add', async (req, res) => {
 // Get all teachers
 router.get('/', async (req, res) => {
     try {
-        const teachers = await Teacher.find()
-        // .populate('subject')
+        const teachers = await Teacher.find({});
         res.status(200).json(teachers);
     } catch (err) {
         res.status(500).json({ error: err.message });

@@ -9,7 +9,7 @@ const StudentForm = () => {
         rollNumber: '',
         branch: '',
         projectName: '',
-        assignedTeacher: '',
+        assignedTeacherId: '',
     });
     const { teachers, fetchStudents, url } = useProject();
     
@@ -20,6 +20,7 @@ const StudentForm = () => {
     };
 
     const handleSubmit = async (e) => {
+        console.log(formData);
         e.preventDefault();
         if(formData.rollNumber.length < 6){
             setErrorMessage('Enter a valid roll number.');
@@ -34,7 +35,7 @@ const StudentForm = () => {
                 rollNumber: '',
                 branch: '',
                 projectName: '',
-                assignedTeacher: '',
+                assignedTeacherId: '',
             });
             setErrorMessage(''); 
         } catch (error) {
@@ -79,15 +80,15 @@ const StudentForm = () => {
                 required
             />
             <select
-                name="assignedTeacher"
-                value={formData.assignedTeacher}
+                name="assignedTeacherId"
+                value={formData.assignedTeacherId}
                 onChange={handleChange}
                 required
             >
                 <option value="" disabled>Select a Teacher</option>
                 {teachers.map((teacher) => (
-                    <option key={teacher._id} value={teacher.name}>
-                        {teacher.name} ({teacher.department})
+                    <option key={teacher._id} value={teacher._id}>
+                        {teacher.name} ({teacher.field})
                     </option>
                 ))}
             </select>

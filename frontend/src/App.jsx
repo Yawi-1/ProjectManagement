@@ -7,10 +7,13 @@ import StudentList from './pages/Students/StudentList';
 import StudentForm from './pages/Students/StudentForm';
 import HomePage from './pages/Home/HomePage';
 import './App.css'
-import AdminHome from './components/Admin/AdminHome';
+import AdminHome from './Admin/AdminHome';
+import Login from './Admin/Authentication/Login';
+import { useAuth } from './context/AuthContext';
+import { Navigate } from 'react-router-dom';
 
 const App = () => {
-    const backendUrl = "http://localhost:3000";
+  const {admin} = useAuth();
 
     return (
         <Router>
@@ -22,7 +25,8 @@ const App = () => {
                     <Route path="/students" element={<StudentList  />} />
                     {/* <Route path="/add-teacher" element={<TeacherForm url={backendUrl} />} /> */}
                     <Route path="/add-student" element={<StudentForm  />} />
-                    <Route path="/adminLogin" element={<AdminHome  />} />
+                    <Route path="/adminLogin" element={admin === null ? <Login  /> : <Navigate to='/dashboard'/>} />
+                    <Route path="/dashboard" element={admin === null ? <Login/> : <AdminHome  />} />
                 </Routes>
             </div>
         </Router>

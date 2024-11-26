@@ -1,0 +1,30 @@
+.admin-panel {
+    font-family: Arial, sans-serif;
+  }
+  
+  .admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: #333;
+    color: white;
+  }
+  
+  .admin-header nav button {
+    margin: 0 5px;
+    padding: 10px 20px;
+    background: #555;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .admin-header nav button.active {
+    background: #007bff;
+  }
+  
+  main {
+    padding: 20px;
+  }
+  
