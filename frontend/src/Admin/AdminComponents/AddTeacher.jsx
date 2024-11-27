@@ -1,46 +1,48 @@
-import React, { useState } from "react";
-import "./AddTeacher.css";
-
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useProject } from '../../context/ProjectContext';
 const AddTeacher = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    field: "",
-  });
+    const [formData, setFormData] = useState({
+        name: '',
+        field: '',
+    });
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert(`Teacher added: ${formData.name}, Field: ${formData.field}`);
-    setFormData({ name: "", field: "" });
-  };
+      const {url} = useProject();
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            await axios.post(`${url}/teachers/add`, formData);
+            alert('Teacher added successfully!');
+            setFormData({ name: '', field: '' });
+        } catch (error) {
+            console.log('Error adding teacher',error);
+        }
+    };
 
-  return (
-    <div className="add-teacher">
-      <h2>Add Teacher</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="name"
-          placeholder="Teacher Name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="text"
-          name="field"
-          placeholder="Field"
-          value={formData.field}
-          onChange={handleChange}
-          required
-        />
-        <button type="submit">Add Teacher</button>
-      </form>
-    </div>
-  );
+    return (
+        <form onSubmit={handleSubmit} className="teacher-form">
+            <h1>Add Teacher</h1>
+            <input
+                name="name"
+                placeholder="Name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+            />
+            <input
+                name="field"
+                placeholder="Field"
+                value={formData.field}
+                onChange={handleChange}
+                required
+            />
+            <button type="submit">Add Teacher</button>
+        </form>
+    );
 };
 
 export default AddTeacher;

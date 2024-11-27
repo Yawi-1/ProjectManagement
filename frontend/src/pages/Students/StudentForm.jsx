@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './StudentForm.css';
 import { useProject } from '../../context/ProjectContext';
+import { Link } from 'react-router-dom';
 
 const StudentForm = () => {
     const [formData, setFormData] = useState({
@@ -93,6 +94,9 @@ const StudentForm = () => {
                 ))}
             </select>
             <button type="submit">Add Student</button>
+            <Link to='/students'>
+            <button id='viewStudentbtn' type="submit">All Students</button>
+            </Link>
         </form>
     );
 };

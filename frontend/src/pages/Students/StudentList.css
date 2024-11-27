@@ -7,9 +7,6 @@
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-.info{
-    font-size: 20px;
-}
 
 .student-list h2 {
     text-align: center;
@@ -18,25 +15,45 @@
     margin-bottom: 20px;
 }
 
-.student-list .actions {
+.filter-container {
     display: flex;
-    justify-content: center;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap; /* Wrap on smaller screens */
     margin-bottom: 20px;
+    gap: 10px;
 }
 
-.student-list .actions button {
-    padding: 10px 15px;
-    margin: 0 10px;
+.filter-container label {
     font-size: 1rem;
-    color: #fff;
-    background-color: #007bff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+    color: #555;
+    flex-shrink: 0;
 }
 
-.student-list .actions button:hover {
-    background-color: #0056b3;
+.filter-container select {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    flex-grow: 1; /* Allow select to grow in size */
+    max-width: 300px;
+}
+
+.filter-container select:focus {
+    outline: none;
+    border-color: #007bff;
+    background-color: #fff;
+}
+
+.filter-container select:hover {
+    background-color: #f1f1f1;
+}
+
+.table-container {
+    overflow-x: auto; /* Enable horizontal scrolling for wide tables */
+    width: 100%;
 }
 
 .student-list table {
@@ -64,7 +81,59 @@
     background-color: #ffffff;
 }
 
-/* Responsive styles */
+.student-list .actions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; /* Wrap buttons on smaller screens */
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.student-list .actions button {
+    padding: 10px 15px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.student-list .actions button:hover {
+    background-color: #0056b3;
+}
+
+.deletebtn {
+    border: none;
+    color: red;
+    width: 100%;
+    padding: 6px;
+    cursor: pointer;
+    border-radius: 15px;
+    font-size: 16px;
+}
+
+.editbtn {
+    border: none;
+    color: green;
+    width: 100%;
+    padding: 6px;
+    cursor: pointer;
+    border-radius: 15px;
+    font-size: 16px;
+}
+
+.deletebtn:hover {
+    background-color: #ff0000;
+    color: white;
+}
+
+.editbtn:hover {
+    background-color: green;
+    color: white;
+}
+
+/* Responsive Styles */
 @media (max-width: 768px) {
     .student-list {
         padding: 15px;
@@ -77,39 +146,16 @@
     .student-list table th,
     .student-list table td {
         font-size: 0.9rem;
+        padding: 8px;
     }
-}
 
+    .student-list .actions button {
+        font-size: 0.9rem;
+        padding: 8px;
+    }
 
-.filter-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-    gap: 10px;
-}
-
-.filter-container label {
-    font-size: 1rem;
-    color: #555;
-}
-
-.filter-container select {
-    padding: 10px;
-    font-size: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background-color: #f9f9f9;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.filter-container select:focus {
-    outline: none;
-    border-color: #007bff;
-    background-color: #fff;
-}
-
-.filter-container select:hover {
-    background-color: #f1f1f1;
+    .filter-container {
+        flex-direction: column; /* Stack filter elements on smaller screens */
+        align-items: flex-start;
+    }
 }

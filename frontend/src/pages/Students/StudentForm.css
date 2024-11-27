@@ -50,6 +50,10 @@
     margin-bottom: 10px;
     text-align: center;
 }
+#viewStudentbtn{
+        background: #e9cf05;
+        color: black;
+}
 
 
 /* Responsive styles */

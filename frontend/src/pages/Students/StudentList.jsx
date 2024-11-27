@@ -3,6 +3,7 @@ import './StudentList.css';
 import { useProject } from '../../context/ProjectContext';
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
+import {Link} from 'react-router-dom'
 
 const StudentList = () => {
     const { teachers, students } = useProject();
@@ -106,6 +107,7 @@ const StudentList = () => {
             </table>
             <br />
             <div className="actions">
+                <Link to='/add-student'><button>Add</button></Link>
                 <button onClick={handlePrint}>Print</button>
                 <button onClick={handleExportToExcel}>Export to Excel</button>
             </div>
