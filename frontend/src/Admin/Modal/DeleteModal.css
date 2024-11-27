@@ -1,0 +1,46 @@
+.deleteModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ }
+ 
+ .deleteModalInner {
+     background-color: #f0f0f0;
+     padding: 20px;
+     width: 30%;
+     border-radius: 8px;
+     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+     text-align: center;
+ }
+ 
+ .deleteModalInner p {
+     font-weight: 600;
+     padding: 10px;
+ }
+ 
+ .deleteModalInner button {
+     padding: 10px 14px;
+     margin: 4px 20px;
+     width: 30%;
+     border: none;
+     color: white;
+     border-radius: 10px;
+     cursor: pointer;
+ }
+ 
+ .deleteModalInner button.yes {
+     background-color: green;
+ }
+ .deleteModalInner button.no {
+     background-color: red;
+ }
+ .deleteModal button:hover{
+    scale: 1.2;
+    transition: all 1s linear;
+ }

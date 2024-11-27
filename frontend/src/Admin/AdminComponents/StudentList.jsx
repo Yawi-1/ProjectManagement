@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { useProject } from '../../context/ProjectContext'
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
+import DeleteModal from "../Modal/DeleteModal";
+import EditModal from "../Modal/EditModal";
 const StudentList = () => {
-  const { students, teachers } = useProject()
+  const { students, teachers } = useProject();
+  const [isDelete, setIsDelete] = useState(false);
+  const [student, setStudent] = useState(null);
+  const [isEdit, setIsEdit] = useState(false);
+  const { url, fetchStudents } = useProject();
 
   return (
     <div className="student-list">
       <h2>Students</h2>
+      {isDelete && <DeleteModal url={url} student={student} setIsDelete={setIsDelete} fetchStudents={fetchStudents} />}
+      {isEdit && <EditModal url={url} student={student} setIsEdit={setIsEdit} fetchStudents={fetchStudents} />}
       <table>
         <thead>
           <tr>
@@ -33,13 +41,13 @@ const StudentList = () => {
                 <td>{student.projectName}</td>
                 <td>{teacherName}</td>
                 <td>
-                  <button  className="editbtn" >
+                  <button onClick={() => { setIsEdit(true), setStudent(student) }} className="editbtn" >
                     <FiEdit />
                   </button>
                 </td>
                 <td>
-                  <button className="deletebtn">
-                    <RiDeleteBin6Line  />
+                  <button onClick={() => { setIsDelete(true), setStudent(student) }} className="deletebtn">
+                    <RiDeleteBin6Line />
                   </button>
                 </td>
               </tr>

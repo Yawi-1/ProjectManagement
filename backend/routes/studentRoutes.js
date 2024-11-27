@@ -55,7 +55,7 @@ router.get('/:id',async (req,res)=>{
 router.put('/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        const { name } = req.body;
+        const { name,projectName,branch } = req.body;
 
         // Check if student exists before attempting to update
         const student = await Student.findById(id);
