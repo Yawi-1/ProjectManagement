@@ -20,15 +20,13 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    flex-wrap: wrap; /* Wrap on smaller screens */
+    flex-wrap: wrap; 
     margin-bottom: 20px;
-    gap: 10px;
 }
 
 .filter-container label {
     font-size: 1rem;
     color: #555;
-    flex-shrink: 0;
 }
 
 .filter-container select {
@@ -38,7 +36,7 @@
     border-radius: 4px;
     background-color: #f9f9f9;
     cursor: pointer;
-    flex-grow: 1; /* Allow select to grow in size */
+    flex-grow: 1; 
     max-width: 300px;
 }
 
@@ -53,7 +51,7 @@
 }
 
 .table-container {
-    overflow-x: auto; /* Enable horizontal scrolling for wide tables */
+    overflow: auto; 
     width: 100%;
 }
 
@@ -81,11 +79,15 @@
 .student-list table tbody tr:nth-child(even) {
     background-color: #ffffff;
 }
+.student-list table tbody tr:hover{
+    background-color: #007bff;
+    color: white;
+}
 
 .student-list .actions {
     display: flex;
     justify-content: center;
-    flex-wrap: wrap; /* Wrap buttons on smaller screens */
+    flex-wrap: wrap;
     gap: 10px;
     margin-top: 20px;
 }
@@ -101,7 +103,7 @@
 }
 
 .student-list .actions button:hover {
-    background-color: #0056b3;
+    background-color: #0010b3;
 }
 
 .deletebtn {
@@ -146,8 +148,11 @@
 
     .student-list table th,
     .student-list table td {
-        font-size: 0.9rem;
+        font-size: 0.8rem;
         padding: 8px;
+    }
+    .student-list table th:nth-child(4), .student-list table td:nth-child(4){
+        display: none;
     }
 
     .student-list .actions button {
@@ -156,7 +161,6 @@
     }
 
     .filter-container {
-        flex-direction: column; /* Stack filter elements on smaller screens */
-        align-items: flex-start;
+        gap: 40px;
     }
 }

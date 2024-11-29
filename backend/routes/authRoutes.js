@@ -20,10 +20,7 @@ router.post('/add', async (req, res) => {
         const admin = new Admin({ name, email, password });
         await admin.save();
 
-        // Generate JWT
-        const token = jwt.sign({ id: admin._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
-        res.status(201).json({ admin, token, message: "Admin created successfully" });
+        res.status(201).json({ admin, message: "Admin created successfully" });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Server error in signup route" });
@@ -55,9 +52,9 @@ router.post('/verify', async (req, res) => {
 });
 
 // Get all admins...........
-router.get('/allAdmins', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
-        const admins = await Admin.find().select('-password');
+        const admins = await Admin.find({}).select('-password');
         res.status(200).json(admins);
     } catch (error) {
         res.status(400).json('Error Occured... At getting admins.')

@@ -29,7 +29,7 @@ const StudentForm = () => {
         }
         try {
             const { data } = await axios.post(`${url}/students/add`, formData);
-            fetchStudents();  
+            fetchStudents();
             alert(data.message);
             setFormData({
                 name: '',

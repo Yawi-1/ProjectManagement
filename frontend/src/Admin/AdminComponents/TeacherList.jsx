@@ -1,5 +1,4 @@
 import React from 'react';
-import './TeacherList.css'
 
 import { useProject } from '../../context/ProjectContext';
 const TeacherList = () => {

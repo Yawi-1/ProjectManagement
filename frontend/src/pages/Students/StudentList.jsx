@@ -48,7 +48,7 @@ const StudentList = () => {
     };
 
     const handleSort = (e) => {
-        const teacherId = e.target.value; // Filter using teacher ID
+        const teacherId = e.target.value; 
         setSelectedTeacher(teacherId);
 
         if (teacherId === '') {
@@ -59,10 +59,7 @@ const StudentList = () => {
             const sortedStudents = students.filter((student) => student.assignedTeacherId === teacherId);
             setSorted(sortedStudents);
         }
-    };
-
-
-
+    } 
     return (
         <div className="student-list">
             <h2>Student List</h2>
@@ -77,6 +74,7 @@ const StudentList = () => {
                     ))}
                 </select>
             </div>
+            <div className='table-container' >
             <table>
                 <thead>
                     <tr>
@@ -105,6 +103,7 @@ const StudentList = () => {
                     })}
                 </tbody>
             </table>
+            </div>
             <br />
             <div className="actions">
                 <Link to='/add-student'><button>Add</button></Link>

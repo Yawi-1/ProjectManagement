@@ -19,7 +19,7 @@ let corsOptions={
 app.use(cors(corsOptions))
 
 // Routes
-app.use('/auth', authRoutes);
+app.use('/admins', authRoutes);
 app.use('/students', studentRoutes);
 app.use('/teachers', teacherRoutes);
 

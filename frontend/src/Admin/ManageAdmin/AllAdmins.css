@@ -1,0 +1,49 @@
+.alladmins-container {
+    padding: 20px;
+    background-color: #f4f4f4;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .alladmins-container h2 {
+    margin-bottom: 15px;
+  }
+  
+  .alladmins-container ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .alladmins-container li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .alladmins-container button {
+    padding: 5px 10px;
+    background-color: #ff4d4d;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .alladmins-container button:hover {
+    background-color: #cc0000;
+  }
+  
+  #addAdminBtn{
+   margin: 10px;
+   padding: 10px 14px;
+   background-color: #007bff;
+   font-size: 1rem;
+  }
+  #addAdminBtn:hover{
+    background-color: #009bff;
+  }

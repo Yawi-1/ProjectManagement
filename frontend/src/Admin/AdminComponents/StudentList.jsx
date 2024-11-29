@@ -4,6 +4,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
 import DeleteModal from "../Modal/DeleteModal";
 import EditModal from "../Modal/EditModal";
+
 const StudentList = () => {
   const { students, teachers } = useProject();
   const [isDelete, setIsDelete] = useState(false);

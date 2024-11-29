@@ -16,6 +16,7 @@ export const ProjectContextProvider = ({ children }) => {
         const fetchTeachers = async () => {
             try {
                 const { data } = await axios.get(`${url}/teachers`);
+                console.log(data);
                 setTeachers(data);
             } catch (error) {
                 console.log('Error fetching teachers:', error);
@@ -37,6 +38,8 @@ export const ProjectContextProvider = ({ children }) => {
     useEffect(() => {
         fetchStudents();
     }, [url]);
+
+
 
 
 

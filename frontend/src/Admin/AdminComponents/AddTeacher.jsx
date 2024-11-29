@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useProject } from '../../context/ProjectContext';
+import './AddTeacher.css'
 const AddTeacher = () => {
     const [formData, setFormData] = useState({
         name: '',
@@ -11,15 +12,16 @@ const AddTeacher = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-      const {url} = useProject();
+      const {url,fetchTeachers} = useProject();
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             await axios.post(`${url}/teachers/add`, formData);
+            fetchTeachers();
             alert('Teacher added successfully!');
             setFormData({ name: '', field: '' });
         } catch (error) {
-            console.log('Error adding teacher',error);
+            alert('Error adding teacher');
         }
     };
 

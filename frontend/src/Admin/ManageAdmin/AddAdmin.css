@@ -1,0 +1,43 @@
+.addadmin-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  
+  .addadmin-container h2 {
+    margin-bottom: 15px;
+  }
+  
+  .addadmin-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .addadmin-container label {
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  .addadmin-container input {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .addadmin-container button {
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .addadmin-container button:hover {
+    background-color: #0056b3;
+  }
+  

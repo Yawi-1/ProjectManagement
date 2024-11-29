@@ -15,7 +15,7 @@ const Login = () => {
     e.preventDefault(); // Prevent form submission from reloading the page
 
     try {
-      const { data } = await axios.post("http://localhost:3000/auth/verify", { email, password });
+      const { data } = await axios.post("http://localhost:3000/admins/verify", { email, password });
       setAdmin(data.token);
       // If the user is authenticated, redirect to the dashboard
       admin !== null && navigate('/dashboard');

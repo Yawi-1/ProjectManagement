@@ -2,7 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import TeacherList from './pages/Teachers/TeacherList';
-import TeacherForm from './pages/Teachers/TeacherForm';
+// import TeacherForm from './pages/Teachers/TeacherForm';
 import StudentList from './pages/Students/StudentList';
 import StudentForm from './pages/Students/StudentForm';
 import HomePage from './pages/Home/HomePage';
