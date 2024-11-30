@@ -55,7 +55,7 @@ router.get('/:id',async (req,res)=>{
 router.put('/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        const { name,projectName,branch } = req.body;
+        const { name,projectName,branch,year } = req.body;
 
         // Check if student exists before attempting to update
         const student = await Student.findById(id);
@@ -67,6 +67,7 @@ router.put('/:id', async (req, res) => {
         student.name = name;
         student.projectName = projectName;
         student.branch=branch;
+        student.year = year;
 
         await student.save(); // Save the updated student
 

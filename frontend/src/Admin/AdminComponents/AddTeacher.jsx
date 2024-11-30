@@ -1,18 +1,21 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useProject } from '../../context/ProjectContext';
-import './AddTeacher.css'
+import './AddTeacher.css';
+
+
 const AddTeacher = () => {
+    const {url,fetchTeachers} = useProject();
     const [formData, setFormData] = useState({
         name: '',
         field: '',
     });
 
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        const {name,value} = e.target;
+        setFormData({ ...formData, [name]: value });
     };
 
-      const {url,fetchTeachers} = useProject();
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -21,6 +24,7 @@ const AddTeacher = () => {
             alert('Teacher added successfully!');
             setFormData({ name: '', field: '' });
         } catch (error) {
+            console.log(error)
             alert('Error adding teacher');
         }
     };

@@ -82,6 +82,7 @@ const StudentList = () => {
                         <th>Roll Number</th>
                         <th>Project</th>
                         <th>Branch</th>
+                        <th>Year</th>
                         <th>Assigned Teacher</th>
                     </tr>
                 </thead>
@@ -97,6 +98,7 @@ const StudentList = () => {
                                 <td>{student.rollNumber}</td>
                                 <td>{student.projectName}</td>
                                 <td>{student.branch}</td>
+                                <td>{student.year}</td>
                                 <td>{teacherName}</td>
                             </tr>
                         );

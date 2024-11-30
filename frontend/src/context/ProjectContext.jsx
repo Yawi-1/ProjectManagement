@@ -12,16 +12,15 @@ export const ProjectContextProvider = ({ children }) => {
 
     // Get All teachers..........
     const [teachers, setTeachers] = useState([]);
+    const fetchTeachers = async () => {
+        try {
+            const { data } = await axios.get(`${url}/teachers`);
+            setTeachers(data);
+        } catch (error) {
+            console.log('Error fetching teachers:', error);
+        }
+    };
     useEffect(() => {
-        const fetchTeachers = async () => {
-            try {
-                const { data } = await axios.get(`${url}/teachers`);
-                console.log(data);
-                setTeachers(data);
-            } catch (error) {
-                console.log('Error fetching teachers:', error);
-            }
-        };
         fetchTeachers();
     }, [url]);
 
@@ -44,7 +43,7 @@ export const ProjectContextProvider = ({ children }) => {
 
 
     return (
-        <ProjectContext.Provider value={{url, teachers, setTeachers,students, setStudents,fetchStudents }}>
+        <ProjectContext.Provider value={{url, teachers, setTeachers,students, setStudents,fetchStudents,fetchTeachers }}>
             {children}
         </ProjectContext.Provider>
     )

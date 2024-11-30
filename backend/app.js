@@ -7,11 +7,9 @@ const teacherRoutes = require('./routes/teacherRoutes');
 const authRoutes = require('./routes/authRoutes');
 
 dotenv.config();
-
 const app = express();
 
 // Middleware
-
 app.use(express.json());
 let corsOptions={
     origin:'http://localhost:5173',

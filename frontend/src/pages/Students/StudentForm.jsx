@@ -9,6 +9,7 @@ const StudentForm = () => {
         name: '',
         rollNumber: '',
         branch: '',
+        year:'',
         projectName: '',
         assignedTeacherId: '',
     });
@@ -35,6 +36,7 @@ const StudentForm = () => {
                 name: '',
                 rollNumber: '',
                 branch: '',
+                year:'',
                 projectName: '',
                 assignedTeacherId: '',
             });
@@ -73,6 +75,13 @@ const StudentForm = () => {
                 onChange={handleChange}
                 required
             />
+            <select name="year" value={formData.year} onChange={handleChange}>
+                <option value="" disabled>Select Year</option>
+                <option value="Ist ">Ist Year</option>
+                <option value="2nd">2nd Year</option>
+                <option value="3rd">3rd Year</option>
+                <option value="4th">4th Year</option>
+            </select>
             <input
                 name="projectName"
                 placeholder="Project Name"
