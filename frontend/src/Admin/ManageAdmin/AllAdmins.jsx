@@ -2,33 +2,18 @@ import React, { useEffect, useState } from 'react';
 import './AllAdmins.css';
 import { useProject } from '../../context/ProjectContext';
 import axios from 'axios';
+import DeleteModal from '../Modal/DeleteModal'
 
-const AllAdmins = ({setAddAdmin}) => {
-    const [admins,setAdmins] = useState([]);
-    const {url} = useProject();
+const AllAdmins = ({ setAddAdmin }) => {
 
-     const fetchAdmins  = async()=>{
-        try{
-             const response = await axios.get(`${url}/admins`);
-             console.log(response);
-             setAdmins(response.data);
-        }
-        catch(error){
-              if(error.response || error.response.data){
-                alert(error.response.data.message);
-              }
-              else{
-                alert("Something went wrong.");
-              }
-        }
-     }
+    const { admins } = useProject();
+    const [isDelete, setIsDelete] = useState(false);
+    const [admin, setAdmin] = useState('');
 
-     useEffect(()=>{
-        fetchAdmins();
-     },[url])
     return (
         <div className="alladmins-container">
             <h2>All Admins</h2>
+            {isDelete && <DeleteModal setIsDelete={setIsDelete} userData={admin} suburl='admins' />}
             {admins.length === 0 ? (
                 <p>No admins to display.</p>
             ) : (
@@ -39,12 +24,12 @@ const AllAdmins = ({setAddAdmin}) => {
                                 <strong>Name:</strong> {admin.name} <br />
                                 <strong>Email:</strong> {admin.email}
                             </div>
-                            <button >Delete</button>
+                            <button onClick={() => { setIsDelete(true), setAdmin(admin) }}>Delete</button>
                         </li>
                     ))}
                 </ul>
             )}
-            <button  onClick={()=>setAddAdmin(true)} id='addAdminBtn'>Add Admin</button>
+            <button onClick={() => setAddAdmin(true)} id='addAdminBtn'>Add Admin</button>
         </div>
     );
 };

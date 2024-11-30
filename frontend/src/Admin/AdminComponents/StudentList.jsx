@@ -1,28 +1,28 @@
 import React, { useState } from "react";
-import { useProject } from '../../context/ProjectContext'
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
 import DeleteModal from "../Modal/DeleteModal";
 import EditModal from "../Modal/EditModal";
+import { useProject } from "../../context/ProjectContext";
 
 const StudentList = () => {
   const { students, teachers } = useProject();
   const [isDelete, setIsDelete] = useState(false);
   const [student, setStudent] = useState(null);
   const [isEdit, setIsEdit] = useState(false);
-  const { url, fetchStudents } = useProject();
 
   return (
     <div className="student-list">
       <h2>Students</h2>
-      {isDelete && <DeleteModal url={url} student={student} setIsDelete={setIsDelete} fetchStudents={fetchStudents} />}
-      {isEdit && <EditModal url={url} student={student} setIsEdit={setIsEdit} fetchStudents={fetchStudents} />}
+      {isDelete && <DeleteModal userData={student} suburl='students' setIsDelete={setIsDelete} />}
+      {isEdit && <EditModal student={student} setIsEdit={setIsEdit} />}
       <table>
         <thead>
           <tr>
             <th>Name</th>
             <th>Roll Number</th>
             <th>Branch</th>
+            <th>Year</th>
             <th>Project Name</th>
             <th>Assigned Teacher</th>
             <th> Edit</th>
@@ -39,6 +39,7 @@ const StudentList = () => {
                 <td>{student.name}</td>
                 <td>{student.rollNumber}</td>
                 <td>{student.branch}</td>
+                <td>{student.year}</td>
                 <td>{student.projectName}</td>
                 <td>{teacherName}</td>
                 <td>

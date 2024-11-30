@@ -45,10 +45,14 @@
     color: white;
 }
 
-.teacher-list li:hover {
-    background:#007bff;
+.teacher-list li:hover  {
+    background:#0aa5e7;
     color: white;
 }
+.teacher-list li:hover span{
+    color: white;
+}
+
 /* Responsive styles */
 @media (max-width: 768px) {
     .teacher-list {

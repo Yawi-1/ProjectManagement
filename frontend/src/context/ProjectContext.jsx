@@ -38,12 +38,38 @@ export const ProjectContextProvider = ({ children }) => {
         fetchStudents();
     }, [url]);
 
+    // Get all admins.......
+    const [admins, setAdmins] = useState([]);
+    const fetchAdmins = async () => {
+        try {
+            const response = await axios.get(`${url}/admins`);
+            console.log(response);
+            setAdmins(response.data);
+        }
+        catch (error) {
+            if (error.response || error.response.data) {
+                alert(error.response.data.message);
+            }
+            else {
+                alert("Something went wrong.");
+            }
+        }
+    }
+
+    useEffect(() => {
+        fetchAdmins();
+    }, [url])
 
 
 
 
     return (
-        <ProjectContext.Provider value={{url, teachers, setTeachers,students, setStudents,fetchStudents,fetchTeachers }}>
+        <ProjectContext.Provider value={{
+            url,fetchAdmins,
+            teachers, setTeachers,
+            students, setStudents, admins,
+            setAdmins, fetchStudents, fetchTeachers
+        }}>
             {children}
         </ProjectContext.Provider>
     )

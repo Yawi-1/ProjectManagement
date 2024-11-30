@@ -1,9 +1,11 @@
 .addadmin-container {
     padding: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
+    background-color: #fffefe;
     border-radius: 5px;
     margin-bottom: 20px;
+    width: 50%;
+    margin: 20px auto;
+    box-shadow: 2px 8px 10px rgba(252, 240, 3, 0.1);
   }
   
   .addadmin-container h2 {
@@ -13,7 +15,6 @@
   .addadmin-container form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
   }
   
   .addadmin-container label {
@@ -35,9 +36,16 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin: 10px 0px;
   }
   
   .addadmin-container button:hover {
     background-color: #0056b3;
   }
   
+
+  @media (max-width:768px) {
+    .addadmin-container{
+      width: 80%;
+    }
+  }

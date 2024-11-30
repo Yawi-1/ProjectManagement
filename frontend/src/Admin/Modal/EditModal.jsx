@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import './EditModal.css';
 import axios from 'axios';
+import { useProject } from '../../context/ProjectContext';
 
-const EditModal = ({ student,setIsEdit,url,fetchStudents }) => {
- 
-    const {_id} = student;
+const EditModal = ({ student, setIsEdit }) => {
+  const {url, fetchStudents} = useProject();
+  const { _id } = student;
   const [formData, setFormData] = useState({
     name: student?.name,
     branch: student?.branch,
+    year: student?.year,
     projectName: student?.projectName,
-    rollNo: student?.rollNumber, 
+    rollNo: student?.rollNumber,
   });
 
   const handleInputChange = (e) => {
@@ -17,22 +19,22 @@ const EditModal = ({ student,setIsEdit,url,fetchStudents }) => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        if(formData.name.trim() === "" || formData.branch.trim() === "" || formData.projectName.trim() ===""){
-            alert('Enter all details correctly......');
-            return;
-        }
-        const {data} = await axios.put(`${url}/students/${_id}`,formData);
-        console.log(data);
-        alert(`${data.name} is succesfully updated.....`)
-        fetchStudents();
-        setIsEdit(false);
+      if (formData.name.trim() === "" || formData.branch.trim() === "" || formData.projectName.trim() === "") {
+        alert('Enter all details correctly......');
+        return;
+      }
+      const { data } = await axios.put(`${url}/students/${_id}`, formData);
+      console.log(data);
+      alert(`${data.name} is succesfully updated.....`)
+      fetchStudents();
+      setIsEdit(false);
     } catch (error) {
-        console.log(error)
+      console.log(error)
     }
-   
+
   };
 
   return (
@@ -65,6 +67,10 @@ const EditModal = ({ student,setIsEdit,url,fetchStudents }) => {
             />
           </label>
           <label>
+            Year
+            <input type="text" name="year" value={formData.year} onChange={handleInputChange} />
+          </label>
+          <label>
             Project Name
             <input
               type="text"
@@ -76,7 +82,7 @@ const EditModal = ({ student,setIsEdit,url,fetchStudents }) => {
           </label>
           <div className="modalButtons">
             <button type="submit" className="save">Save</button>
-            <button type="button" className="cancel" onClick={()=>setIsEdit(false)}>Cancel</button>
+            <button type="button" className="cancel" onClick={() => setIsEdit(false)}>Cancel</button>
           </div>
         </form>
       </div>
