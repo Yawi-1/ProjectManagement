@@ -4,18 +4,21 @@ import axios from 'axios';
 import { useProject } from '../../context/ProjectContext';
 
 const DeleteModal = ({ setIsDelete, userData, suburl }) => {
-  const { url, fetchStudents,fetchAdmins } = useProject();
+  const { url, fetchStudents, fetchAdmins, fetchTeachers } = useProject();
   const { _id } = userData;
   const handleDelete = async () => {
     try {
       const { data } = await axios.delete(`${url}/${suburl}/${_id}`);
       alert(data.message)
-      suburl === 'students' ? fetchStudents() : fetchAdmins();
+      suburl === 'students' && fetchStudents()
+      suburl === 'admins' && fetchAdmins();
+      suburl === 'teachers' && fetchTeachers();
       setIsDelete(false);
     }
     catch (error) {
       if (error.response || error.response.data) {
         alert(error.response.data.message || 'Student not deleted ...')
+        setIsDelete(false)
       }
       else {
         alert('Something went wrong')

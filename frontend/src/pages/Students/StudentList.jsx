@@ -75,6 +75,7 @@ const StudentList = () => {
                 </select>
             </div>
             <div className='table-container' >
+                {sorted.length === 0 && <h1>No Student Available</h1>}
             <table>
                 <thead>
                     <tr>
@@ -86,7 +87,6 @@ const StudentList = () => {
                         <th>Assigned Teacher</th>
                     </tr>
                 </thead>
-                {sorted.length === 0 && <p>No Student Available</p>}
                 <tbody>
                     {sorted.map((student) => {
                         const teacher = teachers.find((teacher) => teacher._id === student.assignedTeacherId);

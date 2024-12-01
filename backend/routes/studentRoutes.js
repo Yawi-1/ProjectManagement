@@ -22,7 +22,7 @@ router.post('/add', async (req, res) => {
             teacher.students.push(student._id);
          await teacher.save();
 
-        res.status(201).json({ message: 'Student added successfully!' });
+        res.status(201).json({ message: 'Student added successfully!....' });
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
@@ -81,17 +81,28 @@ router.put('/:id', async (req, res) => {
 
 // Delete a student.........
 
-router.delete('/:id',async (req,res)=>{
+router.delete('/:id', async (req, res) => {
     try {
-        const {id} = req.params;
-        const student = await Student.findByIdAndDelete(id);
-        res.json({message:"Student Deleted .....", name:student.name});
+        const { id } = req.params;
 
+        // Find and delete the student
+        const student = await Student.findByIdAndDelete(id);
+
+        if (!student) {
+            return res.status(404).json({ message: 'Student not found' });
+        }
+
+        // Remove the student reference from the teacher's students array
+        await Teacher.updateMany(
+            { students: id },
+            { $pull: { students: id } }
+        );
+
+        res.json({ message: 'Student deleted successfully.....', name: student.name });
     } catch (error) {
-        console.log(error);
+        console.error(error);
         res.status(500).send({ message: 'Server Error' });
     }
-})
-
+});
 
 module.exports = router;

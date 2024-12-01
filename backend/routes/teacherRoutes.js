@@ -23,4 +23,23 @@ router.get('/', async (req, res) => {
     }
 });
 
+// Delete the teachers;
+
+router.delete('/:id', async (req, res) => {
+    try {
+        const { id } = req.params; 
+        const teacher = await Teacher.findById(id);
+        if (!teacher) {
+            return res.status(404).json({ message: 'Teacher not found' });
+        }
+        if (teacher.students.length === 0) {
+            await teacher.deleteOne();
+            return res.status(200).json({ message: 'Teacher deleted successfully' });
+        }
+        return res.status(400).json({ message: 'Cannot delete teacher with assigned students' });
+    } catch (error) {
+        return res.status(500).json({ message: 'Internal server error', error: error.message });
+    }
+});
+
 module.exports = router;

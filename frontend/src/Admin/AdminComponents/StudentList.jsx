@@ -16,6 +16,10 @@ const StudentList = () => {
       <h2>Students</h2>
       {isDelete && <DeleteModal userData={student} suburl='students' setIsDelete={setIsDelete} />}
       {isEdit && <EditModal student={student} setIsEdit={setIsEdit} />}
+       
+       
+          {students.length==0 && <h1>No student Available.....</h1>}
+          <div className='table-container' >
       <table>
         <thead>
           <tr>
@@ -59,6 +63,7 @@ const StudentList = () => {
           )}
         </tbody>
       </table>
+      </div>
     </div>
   );
 };

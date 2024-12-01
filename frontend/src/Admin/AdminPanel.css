@@ -30,10 +30,12 @@
 .admin-header nav button:nth-child(6) {
   background-color: red;
 }
+
+
+
 main {
   padding: 20px;
 }
-
 .manageadmin-container {
   max-width: 800px;
   margin: 20px auto;
@@ -59,4 +61,23 @@ main {
   .manageadmin-container h1{
     font-size: 1.5rem;
   }
+
+  .admin-header {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background: #333;
+    color: white;
+  }
+  .admin-header nav{
+    display: flex;
+    flex-direction: column ;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+   .admin-header nav button{
+    background-color: transparent;
+   }
 }

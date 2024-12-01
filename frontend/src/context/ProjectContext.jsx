@@ -42,9 +42,8 @@ export const ProjectContextProvider = ({ children }) => {
     const [admins, setAdmins] = useState([]);
     const fetchAdmins = async () => {
         try {
-            const response = await axios.get(`${url}/admins`);
-            console.log(response);
-            setAdmins(response.data);
+            const { data } = await axios.get(`${url}/admins`);
+            setAdmins(data);
         }
         catch (error) {
             if (error.response || error.response.data) {
@@ -65,7 +64,7 @@ export const ProjectContextProvider = ({ children }) => {
 
     return (
         <ProjectContext.Provider value={{
-            url,fetchAdmins,
+            url, fetchAdmins,
             teachers, setTeachers,
             students, setStudents, admins,
             setAdmins, fetchStudents, fetchTeachers

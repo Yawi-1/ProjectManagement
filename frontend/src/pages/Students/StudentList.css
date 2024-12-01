@@ -150,12 +150,6 @@
     .student-list table td {
         font-size: 0.8rem;
         padding: 8px;
-    }
-    .student-list table th:nth-child(4), .student-list table td:nth-child(4){
-        display: none;
-    }
-
-    .student-list .actions button {
         font-size: 0.9rem;
         padding: 8px;
     }
