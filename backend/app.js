@@ -12,7 +12,7 @@ const app = express();
 // Middleware
 app.use(express.json());
 let corsOptions={
-    origin:'http://localhost:5173',
+    origin: process.env.BASE_URL,
 }
 app.use(cors(corsOptions))
 
