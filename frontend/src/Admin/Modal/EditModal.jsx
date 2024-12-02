@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './EditModal.css';
 import axios from 'axios';
 import { useProject } from '../../context/ProjectContext';
+import {toast} from 'react-toastify'
 
 const EditModal = ({ student, setIsEdit }) => {
   const {url, fetchStudents} = useProject();
@@ -23,12 +24,12 @@ const EditModal = ({ student, setIsEdit }) => {
     e.preventDefault();
     try {
       if (formData.name.trim() === "" || formData.branch.trim() === "" || formData.projectName.trim() === "") {
-        alert('Enter all details correctly......');
+        toast('Enter all details correctly......');
         return;
       }
       const { data } = await axios.put(`${url}/students/${_id}`, formData);
       console.log(data);
-      alert(`${data.name} is succesfully updated.....`)
+      toast(`${data.name} is succesfully updated.....`)
       fetchStudents();
       setIsEdit(false);
     } catch (error) {

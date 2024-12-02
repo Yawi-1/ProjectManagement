@@ -2,7 +2,6 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import TeacherList from './pages/Teachers/TeacherList';
-// import TeacherForm from './pages/Teachers/TeacherForm';
 import StudentList from './pages/Students/StudentList';
 import StudentForm from './pages/Students/StudentForm';
 import HomePage from './pages/Home/HomePage';
@@ -11,6 +10,8 @@ import AdminHome from './Admin/AdminHome';
 import Login from './Admin/Authentication/Login';
 import { useAuth } from './context/AuthContext';
 import { Navigate, useLocation } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   const { admin } = useAuth();
@@ -38,7 +39,16 @@ const App = () => {
             path="/dashboard"
             element={admin === null ? <Login /> : <AdminHome />}
             />
-        </Routes>
+            </Routes>
+            <ToastContainer
+            position="top-right"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            draggable
+            pauseOnHover
+            />
       </div>
    </>
 

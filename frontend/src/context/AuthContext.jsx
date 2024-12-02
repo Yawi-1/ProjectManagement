@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useProject } from "./ProjectContext";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 const AuthContext = createContext();
 
 export const useAuth = () => {
@@ -22,6 +23,7 @@ export const AuthProvider = ({ children }) => {
         localStorage.removeItem('auth-token');
         setAdmin(null);
         navigate('/');
+        toast('Logged out as Admin....')
     }
     return (
         <AuthContext.Provider value={{ admin, setAdmin, logout, }}>

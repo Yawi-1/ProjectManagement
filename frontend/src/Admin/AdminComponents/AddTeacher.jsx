@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useProject } from '../../context/ProjectContext';
 import './AddTeacher.css';
-
+import {toast} from 'react-toastify'
+import Loader from '../../components/Loader/Loader';
 
 const AddTeacher = () => {
-    const {url,fetchTeachers} = useProject();
+    const {url,fetchTeachers,isLoading,setIsLoading} = useProject();
     const [formData, setFormData] = useState({
         name: '',
         field: '',
@@ -19,13 +20,17 @@ const AddTeacher = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            setIsLoading(true)
             await axios.post(`${url}/teachers/add`, formData);
             fetchTeachers();
-            alert('Teacher added successfully!');
+            toast('Teacher added successfully!');
             setFormData({ name: '', field: '' });
         } catch (error) {
             console.log(error)
-            alert('Error adding teacher');
+            toast('Error adding teacher');
+        }
+        finally{
+            setIsLoading(false)
         }
     };
 
@@ -47,6 +52,7 @@ const AddTeacher = () => {
                 required
             />
             <button type="submit">Add Teacher</button>
+            {isLoading && <Loader/>}
         </form>
     );
 };

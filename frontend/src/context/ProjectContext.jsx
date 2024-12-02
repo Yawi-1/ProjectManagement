@@ -1,13 +1,16 @@
 import { createContext, useEffect, useState, useContext } from 'react';
 import axios from 'axios';
+import {toast} from 'react-toastify'
 
 const ProjectContext = createContext();
 
+// Creata a function to use this Context  in each componet.....
 export const useProject = () => {
     return useContext(ProjectContext);
 }
 
 export const ProjectContextProvider = ({ children }) => {
+    // A base url of server........
     const url = "http://localhost:3000";
 
     // Get All teachers..........
@@ -17,28 +20,38 @@ export const ProjectContextProvider = ({ children }) => {
             const { data } = await axios.get(`${url}/teachers`);
             setTeachers(data);
         } catch (error) {
-            console.log('Error fetching teachers:', error);
+            if (error.response || error.response.data) {
+                toast(error.response.data.message || 'Error fetching teachers..');
+            }
+            else{
+                toast('Something went wrong...');
+            }
         }
     };
     useEffect(() => {
         fetchTeachers();
     }, [url]);
 
-    // Get All students......
+    // code to fetch All students......
     const [students, setStudents] = useState([]);
     const fetchStudents = async () => {
         try {
             const { data } = await axios.get(`${url}/students`);
             setStudents(data);
         } catch (error) {
-            console.log('Error fetching students:', error);
+            if (error.response || error.response.data) {
+                toast(error.response.data.message || 'Error fetching students');
+            }
+            else{
+                toast('Something went wrong...');
+            }
         }
     }
     useEffect(() => {
         fetchStudents();
     }, [url]);
 
-    // Get all admins.......
+    // code to fetch  all admins.......
     const [admins, setAdmins] = useState([]);
     const fetchAdmins = async () => {
         try {
@@ -47,10 +60,10 @@ export const ProjectContextProvider = ({ children }) => {
         }
         catch (error) {
             if (error.response || error.response.data) {
-                alert(error.response.data.message);
+                toast(error.response.data.message || 'Error fetching admins...');
             }
             else {
-                alert("Something went wrong.");
+                toast("Something went wrong.");
             }
         }
     }
@@ -60,6 +73,9 @@ export const ProjectContextProvider = ({ children }) => {
     }, [url])
 
 
+    // Code to manage loading state for loader.......
+    const [isLoading,setIsLoading] = useState();
+
 
 
     return (
@@ -67,7 +83,8 @@ export const ProjectContextProvider = ({ children }) => {
             url, fetchAdmins,
             teachers, setTeachers,
             students, setStudents, admins,
-            setAdmins, fetchStudents, fetchTeachers
+            setAdmins, fetchStudents, fetchTeachers,
+            isLoading,setIsLoading
         }}>
             {children}
         </ProjectContext.Provider>

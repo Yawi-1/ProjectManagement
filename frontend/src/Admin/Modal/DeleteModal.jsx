@@ -2,14 +2,16 @@ import React from 'react';
 import './DeleteModal.css';
 import axios from 'axios';
 import { useProject } from '../../context/ProjectContext';
+import {toast} from 'react-toastify'
 
 const DeleteModal = ({ setIsDelete, userData, suburl }) => {
-  const { url, fetchStudents, fetchAdmins, fetchTeachers } = useProject();
+  const { url, fetchStudents, fetchAdmins, fetchTeachers,setIsLoading } = useProject();
   const { _id } = userData;
   const handleDelete = async () => {
     try {
+      setIsLoading(true);
       const { data } = await axios.delete(`${url}/${suburl}/${_id}`);
-      alert(data.message)
+      toast(data.message)
       suburl === 'students' && fetchStudents()
       suburl === 'admins' && fetchAdmins();
       suburl === 'teachers' && fetchTeachers();
@@ -17,12 +19,15 @@ const DeleteModal = ({ setIsDelete, userData, suburl }) => {
     }
     catch (error) {
       if (error.response || error.response.data) {
-        alert(error.response.data.message || 'Student not deleted ...')
+        toast(error.response.data.message || 'Student not deleted ...')
         setIsDelete(false)
       }
       else {
-        alert('Something went wrong')
+        toast('Something went wrong')
       }
+    }
+    finally{
+      setIsLoading(false)
     }
   }
   return (

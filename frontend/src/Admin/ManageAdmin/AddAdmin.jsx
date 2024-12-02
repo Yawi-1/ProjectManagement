@@ -2,31 +2,38 @@ import React, { useState } from 'react';
 import './AddAdmin.css';
 import { useProject } from '../../context/ProjectContext';
 import axios from 'axios';
+import {toast} from 'react-toastify'
+import Loader from '../../components/Loader/Loader'
 
 const AddAdmin = ({ setAddAdmin }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { url, fetchAdmins } = useProject();
+  const { url, fetchAdmins,isLoading,setIsLoading } = useProject();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
+      setIsLoading(true)
       const { data } = await axios.post(`${url}/admins/add`, { name, email, password });
       fetchAdmins();
-      alert(data.message);
+      toast(data.message);
       setName('');
       setEmail('');
       setPassword('');
     }
     catch (error) {
-      alert(error.response.data.message);
+      toast(error.response.data.message);
+    }
+    finally{
+      setIsLoading(false)
     }
   };
 
   return (
     <div className="addadmin-container">
+
       <h2>Add New Admin</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">Name:</label>
@@ -62,6 +69,7 @@ const AddAdmin = ({ setAddAdmin }) => {
           color: "black"
         }} onClick={() => setAddAdmin(false)}>View all admins</button>
       </form>
+            {isLoading && <Loader/>}
     </div>
   );
 };

@@ -44,7 +44,7 @@ router.post('/verify', async (req, res) => {
         }
         // Generate JWT
         const token = jwt.sign({ id: admin._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        res.status(200).json({ admin, token, message: "Login successful, token stored in cookie" });
+        res.status(200).json({ admin, token, message: "Login successfully......" });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Server error in login route" });

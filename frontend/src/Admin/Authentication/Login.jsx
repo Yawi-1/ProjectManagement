@@ -4,29 +4,42 @@ import "./Auth.css";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { Link } from "react-router-dom";
-
+import { toast } from "react-toastify";
+import { useProject } from "../../context/ProjectContext";
+import Loader from '../../components/Loader/Loader'
 const Login = () => {
+
+  // State for data in this component.....
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { setAdmin, admin } = useAuth();
 
+  // Context Data......
+  const { setAdmin, admin } = useAuth();
+  const {url,isLoading,setIsLoading} = useProject();
+
+
+  // Login admin functionality.........
   const login = async (e) => {
     e.preventDefault(); // Prevent form submission from reloading the page
-
     try {
-      const { data } = await axios.post("http://localhost:3000/admins/verify", { email, password });
-      setAdmin(data.token);
+      setIsLoading(true)
+      const { data } = await axios.post(`${url}/admins/verify`, { email, password });
+      setAdmin(data.token);  //Storing the token in admin .....
+      toast(data.message)
       // If the user is authenticated, redirect to the dashboard
       admin !== null && navigate('/dashboard');
       localStorage.setItem('auth-token', data.token);
     } catch (error) {
       console.log(error)
       if (error.response && error.response.data) {
-        alert(error.response.data.message || "Login failed.");
+        toast(error.response.data.message || "Login failed.");
       } else {
-        alert("Something went wrong.");
+        toast("Something went wrong.");
       }
+    }
+    finally{
+      setIsLoading(false)
     }
   };
 
@@ -55,10 +68,10 @@ const Login = () => {
           <p>
             Don't have an account?
           </p>
-
-
         </Link>
       </form>
+
+      {isLoading && <Loader/>}
     </div>
   );
 };

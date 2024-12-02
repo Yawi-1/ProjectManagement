@@ -4,6 +4,7 @@ import { useProject } from '../../context/ProjectContext';
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 import {Link} from 'react-router-dom'
+import {toast} from 'react-toastify'
 
 const StudentList = () => {
     const { teachers, students } = useProject();
@@ -22,7 +23,7 @@ const StudentList = () => {
 
     const handleExportToExcel = () => {
         if (sorted.length === 0) {
-            alert('No students to export');
+            toast('No students to export');
             return;
         }
         const filteredStudents = sorted.map(({ name, rollNumber, projectName, branch, assignedTeacherId, createdAt }) => {

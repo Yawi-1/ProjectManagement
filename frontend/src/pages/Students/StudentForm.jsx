@@ -3,8 +3,14 @@ import axios from 'axios';
 import './StudentForm.css';
 import { useProject } from '../../context/ProjectContext';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import Loader from '../../components/Loader/Loader';
 
 const StudentForm = () => {
+        // Fetch the data from context......
+        const { teachers, fetchStudents, url,isLoading,setIsLoading } = useProject();
+
+    // creates a formData to get the user data through form....
     const [formData, setFormData] = useState({
         name: '',
         rollNumber: '',
@@ -13,25 +19,28 @@ const StudentForm = () => {
         projectName: '',
         assignedTeacherId: '',
     });
-    const { teachers, fetchStudents, url } = useProject();
-    
+
+
+    // State to manage error ....
     const [errorMessage, setErrorMessage] = useState(''); 
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+
+    // Add student functionality...........
     const handleSubmit = async (e) => {
-        console.log(formData);
         e.preventDefault();
         if(formData.rollNumber.length < 6){
             setErrorMessage('Enter a valid roll number.');
             return;
         }
         try {
+            setIsLoading(true);
             const { data } = await axios.post(`${url}/students/add`, formData);
             fetchStudents();
-            alert(data.message);
+            toast(data.message);
             setFormData({
                 name: '',
                 rollNumber: '',
@@ -48,10 +57,14 @@ const StudentForm = () => {
                 setErrorMessage('An error occurred');
             }
         }
+        finally{
+            setIsLoading(false);
+        }
     };
 
     return (
         <form onSubmit={handleSubmit} className="student-form">
+            {isLoading && <Loader/>}
             <h1>Enter the details:</h1>
             {errorMessage && <div className="error-message">{errorMessage}</div>} {/* Display error message here */}
             <input
