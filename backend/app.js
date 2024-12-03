@@ -11,10 +11,8 @@ const app = express();
 
 // Middleware
 app.use(express.json());
-let corsOptions={
-    origin: process.env.BASE_URL,
-}
-app.use(cors(corsOptions))
+
+app.use(cors())
 
 // Routes
 app.use('/admins', authRoutes);

@@ -11,7 +11,7 @@ export const useProject = () => {
 
 export const ProjectContextProvider = ({ children }) => {
     // A base URL of the server
-    const url = "http://localhost:3000";
+    const url = "https://projectmanagementbackend1.onrender.com";
 
     // Get All teachers
     const [teachers, setTeachers] = useState([]);
