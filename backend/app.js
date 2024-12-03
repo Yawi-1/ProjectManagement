@@ -12,7 +12,9 @@ const app = express();
 // Middleware
 app.use(express.json());
 
-app.use(cors())
+app.use(cors({
+    origin: ['https://projectmanager11.netlify.app'],
+}))
 
 // Routes
 app.use('/admins', authRoutes);

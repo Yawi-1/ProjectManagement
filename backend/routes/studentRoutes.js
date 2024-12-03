@@ -5,7 +5,7 @@ const Teacher = require('../models/teacher')
 const protectedRoute = require('../middleware/protectedRoute')
 
 // Add a new student
-router.post('/add',protectedRoute, async (req, res) => {
+router.post('/add', async (req, res) => {
     try {
         const {rollNumber,assignedTeacherId} = req.body;
         const isStudent = await Student.findOne({rollNumber});
