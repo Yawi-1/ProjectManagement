@@ -27,7 +27,7 @@ router.post('/add',protectedRoute, async (req, res) => {
 });
 
 // Login Route (Store Token in HTTP-only Cookie)
-router.post('/verify',protectedRoute, async (req, res) => {
+router.post('/verify', async (req, res) => {
     try {
         const { email, password } = req.body;
 
