@@ -4,19 +4,25 @@ import { useProject } from '../../context/ProjectContext';
 import axios from 'axios';
 import {toast} from 'react-toastify'
 import Loader from '../../components/Loader/Loader'
+import {useAuth} from '../../context/AuthContext'
 
 const AddAdmin = ({ setAddAdmin }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { url, fetchAdmins,isLoading,setIsLoading } = useProject();
+  const {admin} = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       setIsLoading(true)
-      const { data } = await axios.post(`${url}/admins/add`, { name, email, password });
+      const { data } = await axios.post(`${url}/admins/add`, { name, email, password },{
+        headers:{
+          Authorization: `Bearer ${admin}`
+        }
+      });
       fetchAdmins();
       toast(data.message);
       setName('');

@@ -2,9 +2,10 @@ const express = require('express');
 const router = express.Router();
 const Student = require('../models/student');
 const Teacher = require('../models/teacher')
+const protectedRoute = require('../middleware/protectedRoute')
 
 // Add a new student
-router.post('/add', async (req, res) => {
+router.post('/add',protectedRoute, async (req, res) => {
     try {
         const {rollNumber,assignedTeacherId} = req.body;
         const isStudent = await Student.findOne({rollNumber});
@@ -40,7 +41,7 @@ router.get('/', async (req, res) => {
 
 // Get Each Student........
 
-router.get('/:id',async (req,res)=>{
+router.get('/:id',protectedRoute,async (req,res)=>{
     try {
         const {id} = req.params;
         const student = await Student.findById(id);
@@ -52,7 +53,7 @@ router.get('/:id',async (req,res)=>{
 })
 
 // Updae a student.....
-router.put('/:id', async (req, res) => {
+router.put('/:id',protectedRoute, async (req, res) => {
     try {
         const { id } = req.params;
         const { name,projectName,branch,year } = req.body;
@@ -81,7 +82,7 @@ router.put('/:id', async (req, res) => {
 
 // Delete a student.........
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id',protectedRoute, async (req, res) => {
     try {
         const { id } = req.params;
 

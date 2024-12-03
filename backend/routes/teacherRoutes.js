@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const Teacher = require('../models/teacher');
+const protectedRoute = require('../middleware/protectedRoute')
 
 // Add a new teacher
-router.post('/add', async (req, res) => {
+router.post('/add',protectedRoute, async (req, res) => {
     try {
         const teacher = new Teacher(req.body);
         await teacher.save();
@@ -25,7 +26,7 @@ router.get('/', async (req, res) => {
 
 // Delete the teachers;
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id',protectedRoute, async (req, res) => {
     try {
         const { id } = req.params; 
         const teacher = await Teacher.findById(id);

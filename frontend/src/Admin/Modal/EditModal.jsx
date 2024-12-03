@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import './EditModal.css';
 import axios from 'axios';
 import { useProject } from '../../context/ProjectContext';
+import {useAuth} from '../../context/AuthContext'
 import {toast} from 'react-toastify'
 
 const EditModal = ({ student, setIsEdit }) => {
   const {url, fetchStudents} = useProject();
+  const {admin} = useAuth();
   const { _id } = student;
   const [formData, setFormData] = useState({
     name: student?.name,
@@ -27,8 +29,12 @@ const EditModal = ({ student, setIsEdit }) => {
         toast('Enter all details correctly......');
         return;
       }
-      const { data } = await axios.put(`${url}/students/${_id}`, formData);
-      console.log(data);
+      const { data } = await axios.put(`${url}/students/${_id}`, formData,{
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization' :`Bearer ${admin}`
+          },
+      });
       toast(`${data.name} is succesfully updated.....`)
       fetchStudents();
       setIsEdit(false);

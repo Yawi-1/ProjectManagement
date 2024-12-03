@@ -1,11 +1,11 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const Admin = require('../models/admin');
-
+const protectedRoute = require('../middleware/protectedRoute')
 const router = express.Router();
 
 // Signup Route
-router.post('/add', async (req, res) => {
+router.post('/add',protectedRoute, async (req, res) => {
     try {
         const { name, email, password } = req.body;
 
@@ -27,7 +27,7 @@ router.post('/add', async (req, res) => {
 });
 
 // Login Route (Store Token in HTTP-only Cookie)
-router.post('/verify', async (req, res) => {
+router.post('/verify',protectedRoute, async (req, res) => {
     try {
         const { email, password } = req.body;
 
@@ -62,7 +62,7 @@ router.get('/', async (req, res) => {
 });
 
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id',protectedRoute, async (req, res) => {
     try {
         const { id } = req.params;
 

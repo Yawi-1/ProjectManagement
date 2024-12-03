@@ -4,9 +4,11 @@ import { useProject } from '../../context/ProjectContext';
 import './AddTeacher.css';
 import {toast} from 'react-toastify'
 import Loader from '../../components/Loader/Loader';
+import {useAuth} from '../../context/AuthContext'
 
 const AddTeacher = () => {
     const {url,fetchTeachers,isLoading,setIsLoading} = useProject();
+    const {admin} = useAuth();
     const [formData, setFormData] = useState({
         name: '',
         field: '',
@@ -21,7 +23,12 @@ const AddTeacher = () => {
         e.preventDefault();
         try {
             setIsLoading(true)
-            await axios.post(`${url}/teachers/add`, formData);
+            await axios.post(`${url}/teachers/add`, formData,{
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${admin}`
+                }
+            });
             fetchTeachers();
             toast('Teacher added successfully!');
             setFormData({ name: '', field: '' });
