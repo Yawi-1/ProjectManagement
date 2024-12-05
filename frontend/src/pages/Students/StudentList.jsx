@@ -3,8 +3,8 @@ import './StudentList.css';
 import { useProject } from '../../context/ProjectContext';
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
-import {Link} from 'react-router-dom'
-import {toast} from 'react-toastify'
+import { Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 const StudentList = () => {
     const { teachers, students } = useProject();
@@ -26,7 +26,7 @@ const StudentList = () => {
             toast('No students to export');
             return;
         }
-        const filteredStudents = sorted.map(({ name, rollNumber, projectName, branch, assignedTeacherId, createdAt }) => {
+        const filteredStudents = sorted.map(({ name, rollNumber, projectName, branch, assignedTeacherId, year, createdAt }) => {
             const teacher = teachers.find((teacher) => teacher._id === assignedTeacherId);
             const teacherName = teacher ? teacher.name : 'Not Assigned';
 
@@ -35,6 +35,7 @@ const StudentList = () => {
                 "Roll Number": rollNumber,
                 Project: projectName,
                 Branch: branch,
+                "Year": year,
                 "Assigned Teacher": teacherName,
                 "Created At": createdAt,
             };
@@ -49,7 +50,7 @@ const StudentList = () => {
     };
 
     const handleSort = (e) => {
-        const teacherId = e.target.value; 
+        const teacherId = e.target.value;
         setSelectedTeacher(teacherId);
 
         if (teacherId === '') {
@@ -60,7 +61,7 @@ const StudentList = () => {
             const sortedStudents = students.filter((student) => student.assignedTeacherId === teacherId);
             setSorted(sortedStudents);
         }
-    } 
+    }
     return (
         <div className="student-list">
             <h2>Student List</h2>
@@ -77,35 +78,35 @@ const StudentList = () => {
             </div>
             <div className='table-container' >
                 {sorted.length === 0 && <h1>No Student Available</h1>}
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Roll Number</th>
-                        <th>Project</th>
-                        <th>Branch</th>
-                        <th>Year</th>
-                        <th>Assigned Teacher</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {sorted.map((student) => {
-                        const teacher = teachers.find((teacher) => teacher._id === student.assignedTeacherId);
-                        const teacherName = teacher ? teacher.name : 'Not Assigned';
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Roll Number</th>
+                            <th>Project</th>
+                            <th>Branch</th>
+                            <th>Year</th>
+                            <th>Assigned Teacher</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {sorted.map((student) => {
+                            const teacher = teachers.find((teacher) => teacher._id === student.assignedTeacherId);
+                            const teacherName = teacher ? teacher.name : 'Not Assigned';
 
-                        return (
-                            <tr key={student.rollNumber}>
-                                <td>{student.name}</td>
-                                <td>{student.rollNumber}</td>
-                                <td>{student.projectName}</td>
-                                <td>{student.branch}</td>
-                                <td>{student.year}</td>
-                                <td>{teacherName}</td>
-                            </tr>
-                        );
-                    })}
-                </tbody>
-            </table>
+                            return (
+                                <tr key={student.rollNumber}>
+                                    <td>{student.name}</td>
+                                    <td>{student.rollNumber}</td>
+                                    <td>{student.projectName}</td>
+                                    <td>{student.branch}</td>
+                                    <td>{student.year}</td>
+                                    <td>{teacherName}</td>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </table>
             </div>
             <br />
             <div className="actions">
