@@ -14,6 +14,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
+  // State to manage authentication
   const { admin } = useAuth();
   const location = useLocation();
 
